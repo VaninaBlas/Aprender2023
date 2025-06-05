@@ -1,0 +1,95 @@
+from resumen import Resumen
+from estudiante import Estudiante, ambitoType, sectorType
+# from typing import cast
+import csv
+
+class Pais:
+    def __init__(self, archivo_csv:str):
+        ''' completar docstring '''
+        self.archivo_csv = archivo_csv
+        self.provincias: set[str] = set()
+
+        for fila in csv.DictReader(open(self.archivo_csv)):
+            # Asumiendo que cada fila es un objeto Estudiante
+            self.provincias.add(fila["provincia"])
+            # estudiante = Estudiante(fila["provincia"],
+            #                         float(fila["mpuntaje"]),
+            #                         float(fila["lpuntaje"]),
+            #                         float(fila["NSE_puntaje"]),
+            #                         cast(ambitoType, fila["ambito"]),
+            #                         cast(sectorType, fila["sector"]))
+            # self.provincias.append(estudiante)
+        # self.provincias = Resumen(estudiante)
+        pass
+   
+    def tamano(self) -> int:
+        ''' completar docstring '''
+        return open(self.archivo_csv).__sizeof__() # no estoy seguro si es O(1) creo que si
+
+    def resumen_provincia(self, provincia: str) -> Resumen:
+        ''' completar docstring '''
+        cantidad:int = 0
+        promedio_matematica:float = 0.0
+        promedio_lengua:float = 0.0
+        promedio_nse:float = 0.0
+        proporcion_ambito_rural:float = 0.0
+        proporcion_sector_estatal:float = 0.0
+        for fila in csv.DictReader(open(self.archivo_csv)):
+            if fila["provincia"] == provincia:
+                cantidad += 1
+                promedio_matematica += float(fila["mpuntaje"])
+                promedio_lengua += float(fila["lpuntaje"])
+                promedio_nse += float(fila["NSE_puntaje"])
+                if fila["ambito"] == "Rural":
+                    proporcion_ambito_rural += 1
+                if fila["sector"] == "Estatal":
+                    proporcion_sector_estatal += 1
+        promedio_matematica = promedio_matematica / cantidad if cantidad > 0 else 0.0
+        promedio_lengua = promedio_lengua / cantidad if cantidad > 0 else 0.0
+        promedio_nse = (promedio_nse / cantidad) if cantidad > 0 else 0.0
+        if(proporcion_ambito_rural == cantidad):
+            proporcion_ambito_rural = 1.0
+        elif proporcion_ambito_rural != 0.0 and cantidad != 0.0:
+            proporcion_ambito_rural = proporcion_ambito_rural / cantidad
+        if(proporcion_sector_estatal == cantidad):
+            proporcion_sector_estatal = 1.0
+        elif proporcion_sector_estatal != 0.0 and cantidad != 0.0:
+            proporcion_sector_estatal = proporcion_sector_estatal / cantidad if cantidad > 0 else 0.0
+        return Resumen(cantidad, promedio_matematica, promedio_lengua, promedio_nse, proporcion_ambito_rural, proporcion_sector_estatal)
+    
+    def resumenes_pais(self) -> dict[str, Resumen]:
+        ''' completar docstring '''
+        provincias: dict[str, Resumen] = {}
+        for fila in csv.DictReader(open(self.archivo_csv)):
+            provincia = fila["provincia"]
+            if provincia not in provincias:
+                provincias[provincia] = Resumen(0, 0.0, 0.0, 0.0, 0.0, 0.0)
+            provincias[provincia].cantidad += 1
+            provincias[provincia].promedio_matematica += float(fila["mpuntaje"])
+            provincias[provincia].promedio_lengua += float(fila["lpuntaje"])
+            provincias[provincia].promedio_nse += float(fila["NSE_puntaje"])
+            if fila["ambito"] == "Rural":
+                provincias[provincia].proporcion_ambito_rural += 1
+            if fila["sector"] == "Estatal":
+                provincias[provincia].proporcion_sector_estatal += 1
+        for provincia in provincias.values():
+            if provincia.cantidad > 0:
+                provincia.promedio_matematica /= provincia.cantidad
+                provincia.promedio_lengua /= provincia.cantidad
+                provincia.promedio_nse /= provincia.cantidad
+                if provincia.proporcion_ambito_rural > 0:
+                    provincia.proporcion_ambito_rural /= provincia.cantidad
+                if provincia.proporcion_sector_estatal > 0:
+                    provincia.proporcion_sector_estatal /= provincia.cantidad
+        return provincias    
+    def estudiantes_en_intervalo(self, categoria: str, x: float, y: float, provincias: str) -> ...:
+        ''' completar docstring '''
+        
+        pass
+   
+    # def exportar_por_provincias(self, ...):
+    #     ''' completar docstring '''
+    #     pass
+
+print(Pais("Aprender2023_curado.csv").resumenes_pais()['CBA'])
+print(Pais("Aprender2023_curado.csv").resumen_provincia('CBA'))
