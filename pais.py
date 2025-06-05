@@ -1,5 +1,5 @@
 from resumen import Resumen
-from estudiante import Estudiante, ambitoType, sectorType
+from estudiante import Estudiante
 # from typing import cast
 import csv
 
@@ -12,14 +12,6 @@ class Pais:
         for fila in csv.DictReader(open(self.archivo_csv)):
             # Asumiendo que cada fila es un objeto Estudiante
             self.provincias.add(fila["provincia"])
-            # estudiante = Estudiante(fila["provincia"],
-            #                         float(fila["mpuntaje"]),
-            #                         float(fila["lpuntaje"]),
-            #                         float(fila["NSE_puntaje"]),
-            #                         cast(ambitoType, fila["ambito"]),
-            #                         cast(sectorType, fila["sector"]))
-            # self.provincias.append(estudiante)
-        # self.provincias = Resumen(estudiante)
         pass
    
     def tamano(self) -> int:
@@ -82,14 +74,37 @@ class Pais:
                 if provincia.proporcion_sector_estatal > 0:
                     provincia.proporcion_sector_estatal /= provincia.cantidad
         return provincias    
-    def estudiantes_en_intervalo(self, categoria: str, x: float, y: float, provincias: str) -> ...:
+    def estudiantes_en_intervalo(self, categoria: str, x: float, y: float, provincias: str) -> int:
         ''' completar docstring '''
-        
-        pass
+        # p >= x and p < y while provincias == p and
+        alum: int = 0
+        for fila in csv.DictReader(open(self.archivo_csv)):
+            if fila["provincia"] == provincias:
+                if categoria == "mat":
+                    if float(fila["mpuntaje"]) >= x and float(fila["mpuntaje"]) < y:
+                        alum += 1
+                elif categoria == "len":
+                    if float(fila["lpuntaje"]) >= x and float(fila["lpuntaje"]) < y:
+                        alum += 1
+                elif categoria == "nse":
+                    if float(fila['NSE_nivel']) >= x and float(fila['NSE_nivel']) < y:
+                        alum += 1
+        return alum
    
-    # def exportar_por_provincias(self, ...):
-    #     ''' completar docstring '''
-    #     pass
-
-print(Pais("Aprender2023_curado.csv").resumenes_pais()['CBA'])
-print(Pais("Aprender2023_curado.csv").resumen_provincia('CBA'))
+    def exportar_por_provincias(self, archivo_csv: str, provincias: list[str]) -> None:
+        ''' completar docstring '''
+        with open(archivo_csv, 'w', newline='') as csvfile:
+            fieldnames = ['provincia', 'mpuntaje', 'lpuntaje', 'NSE_puntaje', 'ambito', 'sector']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for fila in csv.DictReader(open(self.archivo_csv)):
+                if fila["provincia"] in provincias:
+                    writer.writerow({
+                        'provincia': fila['provincia'],
+                        'mpuntaje': fila['mpuntaje'],
+                        'lpuntaje': fila['lpuntaje'],
+                        'NSE_puntaje': fila['NSE_puntaje'],
+                        'ambito': fila['ambito'],
+                        'sector': fila['sector']
+                    })
+        pass
