@@ -22,7 +22,7 @@ class Pais:
         return len(open(self.archivo_csv).readlines()) # no estoy seguro si es O(1) creo que si
 
     def resumen_provincia(self, provincia: str) -> Resumen:
-        ''' completar docstring '''
+        ''' devuelve un Resumen con los datos de la provincia especificada '''
         cantidad:int = 0
         promedio_matematica:float = 0.0
         promedio_lengua:float = 0.0
@@ -53,7 +53,7 @@ class Pais:
         return Resumen(cantidad, promedio_matematica, promedio_lengua, promedio_nse, proporcion_ambito_rural, proporcion_sector_estatal)
     
     def resumenes_pais(self) -> dict[str, Resumen]:
-        ''' completar docstring '''
+        ''' devuelve un diccionario con los Resumenes de todas las provincias del pais '''
         provincias: dict[str, Resumen] = {}
         for fila in csv.DictReader(open(self.archivo_csv)):
             provincia = fila["provincia"]
@@ -78,7 +78,8 @@ class Pais:
                     provincia.proporcion_sector_estatal /= provincia.cantidad
         return provincias    
     def estudiantes_en_intervalo(self, categoria: str, x: float, y: float, provincias: str) -> int:
-        ''' completar docstring '''
+        ''' devuelve la cantidad de estudiantes que cumplen con las condiciones: x >= puntaje_categoria < y
+        donde categoria puede ser "mat", "len" o "nse" y provincias es el nombre de la provincia '''
         # p >= x and p < y while provincias == p and
         alum: int = 0
         for fila in csv.DictReader(open(self.archivo_csv)):
@@ -95,7 +96,7 @@ class Pais:
         return alum
    
     def exportar_por_provincias(self, archivo_csv: str, provincias: list[str]) -> None:
-        ''' completar docstring '''
+        ''' exporta los datos de las provincias especificadas a un nuevo archivo CSV '''
         with open(archivo_csv, 'w', newline='') as csvfile:
             fieldnames = ['provincia', 'mpuntaje', 'lpuntaje', 'NSE_puntaje', 'ambito', 'sector']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
