@@ -32,7 +32,7 @@ class Estudiante(object):
         if not isinstance(otro, Estudiante):
             return False
         if(self.provincia == otro.provincia and
-           self.puntaje_matematica == otro.puntaje_matematica and
+           (self.puntaje_matematica == otro.puntaje_matematica) and
            self.puntaje_lengua == otro.puntaje_lengua and
            self.puntaje_nse == otro.puntaje_nse and
            self.ambito == otro.ambito and

@@ -1,11 +1,14 @@
 from resumen import Resumen
-from estudiante import Estudiante
 # from typing import cast
 import csv
 
 class Pais:
     def __init__(self, archivo_csv:str):
-        ''' completar docstring '''
+        ''' inicializa la clase Pais con el archivo CSV que contiene los datos de los estudiantes '''
+        if not archivo_csv.endswith('.csv'):
+            raise ValueError("El archivo debe ser un CSV")
+        if not archivo_csv:
+            raise ValueError("El archivo no puede estar vacío")
         self.archivo_csv = archivo_csv
         self.provincias: set[str] = set()
 
@@ -15,8 +18,8 @@ class Pais:
         pass
    
     def tamano(self) -> int:
-        ''' completar docstring '''
-        return open(self.archivo_csv).__sizeof__() # no estoy seguro si es O(1) creo que si
+        ''' devuelve la cantidad de lineas del archivo CSV '''
+        return len(open(self.archivo_csv).readlines()) # no estoy seguro si es O(1) creo que si
 
     def resumen_provincia(self, provincia: str) -> Resumen:
         ''' completar docstring '''
@@ -108,3 +111,4 @@ class Pais:
                         'sector': fila['sector']
                     })
         pass
+print(Pais("Aprender2023_curado.csv").tamano())
