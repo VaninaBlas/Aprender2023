@@ -9,9 +9,9 @@
 class Estudiante(object):
     def __init__(self, provincia:str, puntaje_matematica: float, puntaje_lengua: float, puntaje_nse: float, ambito: str, sector: str):
         ''' clase que representa un estudiante con sus datos de provincia, puntajes y ambito/sector '''
-        if ambito not in ['urbano', 'rural']:
+        if ambito not in ['Urbano', 'Rural']:
             raise ValueError("El ambito debe ser 'urbano' o 'rural'")
-        if sector not in ['estatal', 'privado']:
+        if sector not in ['Estatal', 'Privado']:
             raise ValueError("El sector debe ser 'estatal' o 'privado'")
         self.provincia: str = provincia
         self.puntaje_matematica: float = puntaje_matematica
