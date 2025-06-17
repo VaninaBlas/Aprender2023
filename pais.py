@@ -41,47 +41,47 @@ class Pais:
         Puede devolver un resumen vacío si no hay estudiantes para esa provincia.
         '''
  
-        lista_estudiante_provincia:list[Estudiante]=[]
+        lista_estudiante_provincia:list[Estudiante]=[] #o(1)
         #recorremos todos los estudiantes, si su provincia coincide con la solicitada, lo agregamos a la lista
-        for estudiante in self.estudiantes:  
-            if estudiante.provincia == provincia: 
-                lista_estudiante_provincia.append(estudiante)
+        for estudiante in self.estudiantes:  #o(n)
+            if estudiante.provincia == provincia: #o(1)
+                lista_estudiante_provincia.append(estudiante) #o(1)
                 
-        return Resumen(lista_estudiante_provincia)
+        return Resumen(lista_estudiante_provincia) #o(1)
     
     def resumenes_pais(self) -> dict[str, Resumen]:
         '''
         Requiere: nada 
         Devuelve: un diccionario donde las claves son las provincias presentes
         en el objeto y los valores son sus resúmenes correspondientes '''
-        provincias_con_resumenes: dict[str, Resumen] = {}
+        provincias_con_resumenes: dict[str, Resumen] = {} #o(1)
         #recorremos todas las provincias presentes, y guardamos un resumen de cada una                
-        for provincia in self.provincias:
-            provincias_con_resumenes[provincia] = self.resumen_provincia(provincia)
-        return provincias_con_resumenes
+        for provincia in self.provincias: #o(p)
+            provincias_con_resumenes[provincia] = self.resumen_provincia(provincia) #o(n)
+        return provincias_con_resumenes #o(1)
     def estudiantes_en_intervalo(self, categoria: str, x: float, y: float, provincias:set[str]) -> int:
         ''' 
         Requiere: categoria es un string que toma el valor "mat", "len" o "nse". Todas las provincias en el conjunto
         provincias estan presentes en self.provincias. x<y
         Devuelve: la cantidad de estudiantes de las provincias indicadas que tienen un puntaje en 
         matemática, lengua o nivel socioeconómico (según corresponda) mayor o igual que x y menor estricto que y'''
-        cantidad_estudiantes: int = 0
+        cantidad_estudiantes: int = 0 #o(1)
         # verificamos que provincias de interes estan presentes en el objeto
-        for provincia in self.provincias:
-            if provincia in provincias: # si la provincia esta entre las indicadas
+        for provincia in self.provincias: #o(p)
+            if provincia in provincias: # si la provincia esta entre las indicadas #o(1)
                 # si el estudiante es de la provincia actual y su puntaje esta en el intervalo, se cuenta
-                for estudiante in self.estudiantes:               
-                    if estudiante.provincia == provincia:
-                        if categoria == "mat":
-                            if estudiante.puntaje_matematica >= x and estudiante.puntaje_matematica < y:
-                                cantidad_estudiantes += 1
-                        elif categoria == "len":
-                            if estudiante.puntaje_lengua >= x and estudiante.puntaje_lengua < y:
-                                cantidad_estudiantes += 1
-                        else: # se refiere a la categoria "nse"
-                            if estudiante.puntaje_nse >= x and estudiante.puntaje_nse < y:
-                                cantidad_estudiantes += 1 
-        return cantidad_estudiantes
+                for estudiante in self.estudiantes: #o(n)
+                    if estudiante.provincia == provincia: #o(1)
+                        if categoria == "mat": #o(1)
+                            if estudiante.puntaje_matematica >= x and estudiante.puntaje_matematica < y: #o(1)
+                                cantidad_estudiantes += 1 #o(1)
+                        elif categoria == "len": #o(1)
+                            if estudiante.puntaje_lengua >= x and estudiante.puntaje_lengua < y: #o(1)
+                                cantidad_estudiantes += 1 #o(1)
+                        else: # se refiere a la categoria "nse" #o(1)
+                            if estudiante.puntaje_nse >= x and estudiante.puntaje_nse < y: #o(1)
+                                cantidad_estudiantes += 1 #o(1)
+        return cantidad_estudiantes #o(1)
    
     def exportar_por_provincias(self, archivo_csv: str, provincias: set[str]):
         ''' 
@@ -102,4 +102,4 @@ class Pais:
             f.write(provincia+ ","+ str(resumen.cantidad)+","+str(resumen.promedio_matematica)+","+str(resumen.promedio_lengua) + ","+ str(resumen.promedio_nse) +","+str(resumen.proporcion_ambito_rural)+","+str(resumen.proporcion_sector_estatal)+ "\n")
         f.close() #cerramos el archivo
 
-print(Pais("Aprender2023_curadov3.csv").exportar_por_provincias("provincia_mza_chu.csv", {"MZA","JDAJDSA"}))
+print(Pais("Aprender2023_curado_v4.csv").resumen_provincia("MZA").promedio_nse)
