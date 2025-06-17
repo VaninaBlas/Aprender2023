@@ -8,11 +8,12 @@ class Pais:
         '''
         inicializa la clase Pais, cargando los estudiantes y registrando las provincias presentes en el 
         archivo archivo_csv.
+        
         Requiere: archivo_csv es el nombre de un archivo en formato CSV,  con muchas columnas pero las que usamos
         son 6: "provincia" (str con 3 letras), mpuntaje (float), lpuntaje (float),  NSE_puntaje (float),
         "ambito" (string donde los strings posibles son "rural" o "urbano"), "sector" (string donde los strings
         posibles son "estatal" o "privado")
-        
+        Nota: el archivo no contiene estudiantes con idalumno repetido (cada fila corresponde a un estudiante único).
         '''
         # variables que se usaran en las funciones
         self.provincias: set[str] = set() # guardara las provincias presentes en el archivo_csv
@@ -35,8 +36,9 @@ class Pais:
 
     def resumen_provincia(self, provincia: str) -> Resumen:
         ''' 
-        Requiere: provincia in self.provincias
+        Requiere: nada
         Devuelve: un objeto de la clase Resumen, que encapsula ciertas estadísticas para la provincia dada.
+        Puede devolver un resumen vacío si no hay estudiantes para esa provincia.
         '''
  
         lista_estudiante_provincia:list[Estudiante]=[]

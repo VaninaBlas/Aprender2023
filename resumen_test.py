@@ -355,6 +355,600 @@ class TestResumen(unittest.TestCase):
         self.assertAlmostEqual(r.promedio_nse,-0.8)
         self.assertAlmostEqual(r.proporcion_ambito_rural, 0.2)
         self.assertAlmostEqual(r.proporcion_sector_estatal, 0.4)
+        
+        
+    ##### Test de la representacion del objeto (repr)    
+    def test_repr_representacion_correcta(self):
+        #formato estandar
+        e1:Estudiante=Estudiante("CBA", 876.38888, 567.175777, 1.909999, "Rural", "Privado")
+        e2:Estudiante=Estudiante("ETR", 239.16500009,481.86500 ,0.2666,"Urbano","Estatal")
+        e3:Estudiante=Estudiante("SDE", 345.9999999,567.99999, -0.9999, "Rural", "Estatal")
+        e4:Estudiante=Estudiante("JJY", 888.24237498234, 123.47423423, -1.432420, "Urbano", "Estatal")
+        e5:Estudiante=Estudiante("PBA", 340.4234234, 367.43223423, 1.2839283, "Rural", "Privado")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:538.04, Len:421.59, NSE:0.21, Rural:0.60, Estado:0.60, N:5>")
+        
+        e1:Estudiante = Estudiante("CBA", 324.37281, 354.58743, 2.04837, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("PBA", 143.52843, 234.89412, 1.44728, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("SFE", 837.14923, 135.76954, -1.88742, "Rural", "Estatal")
+        e4:Estudiante = Estudiante("MIS", 428.91432, 203.65284, -1.73564, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("CHA", 239.46987, 482.28571, -0.59124, "Rural", "Estatal")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:394.69, Len:282.24, NSE:-0.14, Rural:0.60, Estado:0.60, N:5>")
+        
+        e1:Estudiante = Estudiante("CAT", 748.97345, 433.66111, 0.13467, "Urbano", "Privado")
+        e2:Estudiante = Estudiante("JJY", 239.23874, 189.45873, -2.72359, "Rural", "Privado")
+        e3:Estudiante = Estudiante("MZA", 923.58291, 832.01527, 1.92837, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("SCZ", 102.09137, 923.98951, -2.07438, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("ETR", 555.75486, 1.22948, -1.36729, "Urbano", "Estatal")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:513.93, Len:476.07, NSE:-0.82, Rural:0.20, Estado:0.20, N:5>")
+        
+        e1:Estudiante = Estudiante("TUC", 923.83917, 329.74128, 1.39817, "Rural", "Privado")
+        e2:Estudiante = Estudiante("SJU", 222.01238, 438.69384, -0.51829, "Urbano", "Estatal")
+        e3:Estudiante = Estudiante("NEU", 483.58743, 573.27364, 1.98426, "Rural", "Privado")
+        e4:Estudiante = Estudiante("SLU", 923.47382, 923.09845, -0.12838, "Urbano", "Estatal")
+        e5:Estudiante = Estudiante("FOR", 344.83829, 94.68392, 0.37456, "Rural", "Privado")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:579.55, Len:471.90, NSE:0.62, Rural:0.60, Estado:0.40, N:5>")
+        
+    def test_repr_un_solo_decimal(self):
+        #los puntajes solo tienen un decimal
+        e1:Estudiante = Estudiante("MZA", 105.3, 210.7, -1.1, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("MIS", 420.8, 319.2, 0.4, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("SFE", 785.0, 690.5, 1.3, "Rural", "Estatal")
+        e4:Estudiante = Estudiante("SDE", 505.5, 603.1, -1.9, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("TUC", 888.8, 712.4, -2.2, "Rural", "Estatal")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:541.08, Len:507.18, NSE:-0.70, Rural:0.60, Estado:0.60, N:5>")
+        
+        e1:Estudiante = Estudiante("CAT", 310.1, 275.3, 1.6, "Urbano", "Privado")
+        e2:Estudiante = Estudiante("CRR", 215.4, 189.6, -0.3, "Rural", "Privado")
+        e3:Estudiante = Estudiante("LRI", 510.9, 439.8, -1.2, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("SLU", 901.2, 812.5, 0.0, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("NEU", 615.3, 707.9, 0.7, "Urbano", "Privado")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:510.58, Len:485.02, NSE:0.16, Rural:0.20, Estado:0.00, N:5>")
+        
+        e1:Estudiante = Estudiante("FOR", 123.4, 456.7, -1.0, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("PBA", 654.3, 321.8, 0.7, "Rural", "Estatal")
+        e3:Estudiante = Estudiante("CHU", 215.0, 109.5, 1.3, "Rural", "Estatal")
+        e4:Estudiante = Estudiante("STA", 800.6, 712.1, 2.9, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("CAB", 403.7, 520.2, 2.5, "Rural", "Estatal")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:439.40, Len:424.06, NSE:1.28, Rural:0.80, Estado:0.80, N:5>")
+        
+        e1:Estudiante = Estudiante("SJU", 530.8, 605.4, -1.3, "Urbano", "Privado")
+        e2:Estudiante = Estudiante("CHA", 199.9, 280.1, 0.6, "Rural", "Estatal")
+        e3:Estudiante = Estudiante("LPA", 777.5, 622.0, -0.7, "Rural", "Estatal")
+        e4:Estudiante = Estudiante("CRR", 499.0, 455.3, 1.8, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("JJY", 655.2, 712.9, -2.0, "Rural", "Privado")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:532.48, Len:535.14, NSE:-0.32, Rural:0.80, Estado:0.60, N:5>")
+        
+    def test_repr_muchos_decimales(self):
+        # los puntajes tienen muchos decimales
+        e1:Estudiante = Estudiante("MZA", 123.4567890123456789012345678, 456.1234567890123456789012345, -1.9876543210987654321098765, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("PBA", 654.3210987654321098765432109, 321.1234567890123456789012345, 0.9876543210987654321098765, "Rural", "Privado")
+        e3:Estudiante = Estudiante("CHU", 215.9876543210987654321098765, 109.8765432109876543210987654, 1.1234567890123456789012345, "Rural", "Estatal")
+        e4:Estudiante = Estudiante("STA", 800.1234509876543210987654321, 712.9876543210987654321098765, -0.1234567890123456789012345, "Rural", "Privado")
+        e5:Estudiante = Estudiante("CAB", 403.5678901234567890123456789, 520.2345678901234567890123456, -1.9876543210987654321098765, "Rural", "Estatal")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:439.49, Len:424.07, NSE:-0.40, Rural:1.00, Estado:0.60, N:5>")
+        
+        
+        e1:Estudiante = Estudiante("CHA", 199.9999999999999999999999999, 280.1234567890123456789012345, -1.6543210987654321098765432, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("LPA", 777.5555555555555555555555555, 622.9876543210987654321098765, 0.7654321098765432109876543, "Rural", "Estatal")
+        e3:Estudiante = Estudiante("CRR", 499.1234567890123456789012345, 455.3456789012345678901234567, 1.8765432109876543210987654, "Rural", "Estatal")
+        e4:Estudiante = Estudiante("JJY", 655.2222222222222222222222222, 712.9999999999999999999999999, -1.1111111111111111111111111, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("RNE", 123.4567890123456789012345678, 234.5678901234567890123456789, -0.6789012345678901234567890, "Rural", "Estatal")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:451.07, Len:461.20, NSE:-0.16, Rural:0.80, Estado:0.80, N:5>")
+        
+        e1:Estudiante = Estudiante("TDF", 115.1234567890123456789012345, 210.9876543210987654321098765, 0.1234567890123456789012345, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("NEU", 890.9876543210987654321098765, 770.1234567890123456789012345, -0.9876543210987654321098765, "Urbano", "Estatal")
+        e3:Estudiante = Estudiante("SLU", 540.5555555555555555555555555, 485.1234567890123456789012345, -2.9876543210987654321098765, "Urbano", "Estatal")
+        e4:Estudiante = Estudiante("LRI", 300.1234567890123456789012345, 420.9876543210987654321098765, -1.1234567890123456789012345, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("FOR", 610.2222222222222222222222222, 699.3333333333333333333333333, 0.4444444444444444444444444, "Urbano", "Estatal")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:491.40, Len:517.31, NSE:-0.91, Rural:0.20, Estado:0.80, N:5>")
+        
+        e1:Estudiante = Estudiante("CBA", 425.1234567890123456789012345, 535.9876543210987654321098765, 1.1234567890123456789012345, "Urbano", "Privado")
+        e2:Estudiante = Estudiante("SFE", 775.1234567890123456789012345, 640.9876543210987654321098765, 2.1234567890123456789012345, "Rural", "Estatal")
+        e3:Estudiante = Estudiante("MIS", 180.9876543210987654321098765, 290.1234567890123456789012345, -1.9876543210987654321098765, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("CAT", 500.1111111111111111111111111, 450.2222222222222222222222222, -2.3333333333333333333333333, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("STA", 800.5555555555555555555555555, 720.6666666666666666666666666, -0.7777777777777777777777777, "Urbano", "Privado")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:536.38, Len:527.60, NSE:-0.37, Rural:0.20, Estado:0.20, N:5>")
+        
+        
+    def test_repr_extremos_proporcion(self):
+        #Las proporciones pueden ser 0.00 o 1.00
+        
+        #Proporcion 0.00
+        e1:Estudiante = Estudiante("MZA", 123.45678, 234.56789, 1.67890, "Urbano", "Privado")
+        e2:Estudiante = Estudiante("MIS", 456.78901, 567.89012, -1.90123, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("SFE", 234.56789, 345.67890, 0.78901, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("TUC", 789.01234, 890.12345, -1.23456, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("CAT", 345.67890, 456.78901, -2.89012, "Urbano", "Privado")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:389.90, Len:499.01, NSE:-0.71, Rural:0.00, Estado:0.00, N:5>")
+        
+        e1:Estudiante = Estudiante("CAB", 567.89012, 678.90123, 1.01234, "Urbano", "Privado")
+        e2:Estudiante = Estudiante("CRR", 678.90123, 789.01234, -1.12345, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("CHA", 123.45678, 234.56789, -2.67890, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("ETR", 234.56789, 345.67890, -0.78901, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("JJY", 345.67890, 456.78901, -0.89012, "Urbano", "Privado")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:390.10, Len:500.99, NSE:-0.89, Rural:0.00, Estado:0.00, N:5>")
+        
+        
+        #Proporcion 1.00
+        e1:Estudiante = Estudiante("MZA", 123.45678, 234.56789, 1.67890, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("MIS", 456.78901, 567.89012, 0.90123, "Rural", "Estatal")
+        e3:Estudiante = Estudiante("SFE", 234.56789, 345.67890, -1.78901, "Rural", "Estatal")
+        e4:Estudiante = Estudiante("TUC", 789.01234, 890.12345, -0.23456, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("CAT", 345.67890, 456.78901, -1.89012, "Rural", "Estatal")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:389.90, Len:499.01, NSE:-0.27, Rural:1.00, Estado:1.00, N:5>")
+        
+        e1:Estudiante = Estudiante("CAB", 567.89012, 678.90123, 1.01234, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("CRR", 678.90123, 789.01234, -1.12345, "Rural", "Estatal")
+        e3:Estudiante = Estudiante("CHA", 123.45678, 234.56789, -0.67890, "Rural", "Estatal")
+        e4:Estudiante = Estudiante("ETR", 234.56789, 345.67890, -0.78901, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("JJY", 345.67890, 456.78901, -1.89012, "Rural", "Estatal")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertEqual(str(r), "<Mat:390.10, Len:500.99, NSE:-0.69, Rural:1.00, Estado:1.00, N:5>")
+        
+    def test_repr_promedio_redondeo_para_arriba(self):
+        #puntajes que dan en promedio un numero que redondea para arriba
+        e1:Estudiante = Estudiante("SJU", 311.44555, 402.44222, 0.44111, "Urbano", "Privado")
+        e2:Estudiante = Estudiante("NEU", 326.44999, 419.44333, 0.44555, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("LPA", 339.44123, 435.44999, 0.44777, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("MIS", 347.44444, 448.44444, 0.44333, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("CAT", 359.44789, 462.44888, 0.44999, "Urbano", "Privado")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r.promedio_matematica,336.84582)
+        self.assertAlmostEqual(r.promedio_lengua,433.645772)
+        self.assertAlmostEqual(r.promedio_nse,0.44555)
+        self.assertEqual(str(r), "<Mat:336.85, Len:433.65, NSE:0.45, Rural:0.00, Estado:0.00, N:5>")
+
+        e1:Estudiante = Estudiante("LRI", 321.42965, 512.27894, -0.38927, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("NEU", 845.19487, 478.99991, 1.38291, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("SFE", 456.30791, 709.88224, 0.99123, "Urbano", "Estatal")
+        e4:Estudiante = Estudiante("TUC", 512.91822, 633.47611, -0.41234, "Rural", "Privado")
+        e5:Estudiante = Estudiante("RNE", 602.19879, 357.39999, 1.21783, "Rural", "Estatal")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r.promedio_matematica,547.6098880000001)
+        self.assertAlmostEqual(r.promedio_lengua,538.407438)
+        self.assertAlmostEqual(r.promedio_nse,0.558072)
+        self.assertEqual(str(r), "<Mat:547.61, Len:538.41, NSE:0.56, Rural:0.60, Estado:0.60, N:5>")
+        
+        e1:Estudiante = Estudiante("SLU", 421.15734, 513.38472, -0.58392, "Urbano", "Estatal")
+        e2:Estudiante = Estudiante("CHA", 589.67382, 476.91928, 1.39876, "Rural", "Privado")
+        e3:Estudiante = Estudiante("CRR", 702.38157, 598.27164, 0.87255, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("LPA", 511.20487, 490.12215, -0.29974, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("CHU", 388.76199, 529.83847, 1.05741, "Rural", "Privado")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r.promedio_matematica,522.635918)
+        self.assertAlmostEqual(r.promedio_lengua,521.707252)
+        self.assertAlmostEqual(r.promedio_nse,0.48901200000000006)
+        self.assertEqual(str(r), "<Mat:522.64, Len:521.71, NSE:0.49, Rural:0.60, Estado:0.40, N:5>")
+
+    def test_repr_promedio_redondeo_para_abajo(self):
+        #puntajes que dan en promedio un numero que redondea para abajo
+        e1:Estudiante = Estudiante("TDF", 513.68451, 499.91661, 0.71945, "Urbano", "Estatal")
+        e2:Estudiante = Estudiante("SFE", 487.21945, 470.55555, -0.12345, "Rural", "Privado")
+        e3:Estudiante = Estudiante("NEU", 501.33000, 499.99444, 0.44222, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("CAT", 478.88888, 461.21412, -1.37999, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("FOR", 496.99999, 488.13131, 1.11001, "Urbano", "Privado")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r.promedio_matematica,495.6245660000001)
+        self.assertAlmostEqual(r.promedio_lengua,483.962406)
+        self.assertAlmostEqual(r.promedio_nse,0.153648)
+        self.assertEqual(str(r), "<Mat:495.62, Len:483.96, NSE:0.15, Rural:0.40, Estado:0.40, N:5>")
+        
+        e1:Estudiante = Estudiante("MIS", 123.45678, 789.12345, 0.98765, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("CBA", 910.23456, 234.56789, -0.12345, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("STA", 345.61891, 567.89123, 1.23456, "Rural", "Privado")
+        e4:Estudiante = Estudiante("PBA", 876.54321, 123.45678, 0.34567, "Urbano", "Estatal")
+        e5:Estudiante = Estudiante("SJU", 234.56789, 345.67891, -0.98765, "Rural", "Privado")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r.promedio_matematica,498.08427)
+        self.assertAlmostEqual(r.promedio_lengua,412.14365200000003)
+        self.assertAlmostEqual(r.promedio_nse,0.2913560000000001)
+        self.assertEqual(str(r), "<Mat:498.08, Len:412.14, NSE:0.29, Rural:0.60, Estado:0.40, N:5>")
+        
+        e1:Estudiante = Estudiante("NEU", 789.65432, 432.10987, 0.12345, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("TUC", 345.92765, 876.54321, -0.54321, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("CHA", 567.12345, 234.87654, 1.09876, "Rural", "Privado")
+        e4:Estudiante = Estudiante("CRR", 123.87654, 789.43210, -0.23456, "Urbano", "Estatal")
+        e5:Estudiante = Estudiante("LPA", 901.23456, 567.34567, 0.87654, "Rural", "Privado")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r.promedio_matematica,545.563304)
+        self.assertAlmostEqual(r.promedio_lengua,580.0614780000001)
+        self.assertAlmostEqual(r.promedio_nse,0.264196)
+        self.assertEqual(str(r), "<Mat:545.56, Len:580.06, NSE:0.26, Rural:0.60, Estado:0.40, N:5>")        
+        
+        e1:Estudiante = Estudiante("STA", 432.10987, 654.32109, -0.98765, "Urbano", "Privado")
+        e2:Estudiante = Estudiante("SFE", 876.54321, 123.45678, 0.54321, "Rural", "Estatal")
+        e3:Estudiante = Estudiante("MZA", 210.98765, 789.12345, -0.12345, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("PBA", 345.67890, 456.78901, 1.23456, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("CBA", 567.89012, 234.56789, -0.34567, "Urbano", "Privado")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r.promedio_matematica,486.64195)
+        self.assertAlmostEqual(r.promedio_lengua,451.6516439999999)
+        self.assertAlmostEqual(r.promedio_nse,0.06420000000000002)
+        self.assertEqual(str(r), "<Mat:486.64, Len:451.65, NSE:0.06, Rural:0.40, Estado:0.40, N:5>")
+        
+    def test_repr_casos_variados(self):
+        #sin estudiantes
+        r:Resumen=Resumen([])
+        self.assertEqual(str(r), "<Mat:0.00, Len:0.00, NSE:0.00, Rural:0.00, Estado:0.00, N:0>")
+        #un solo estudiante
+        e1:Estudiante=Estudiante("FOR", 783.23829, 182.32839, -1.238232, "Urbano", "Privado")
+        r:Resumen=Resumen([e1])
+        self.assertEqual(str(r), "<Mat:783.24, Len:182.33, NSE:-1.24, Rural:0.00, Estado:0.00, N:1>")        
+        #Estudiantes iguales
+        e1:Estudiante=Estudiante("FOR", 783.23829, 182.32839, -1.238232, "Urbano", "Privado")
+        e2:Estudiante=Estudiante("FOR", 783.23829, 182.32839, -1.238232, "Urbano", "Privado")
+        r:Resumen=Resumen([e1,e2])
+        self.assertEqual(str(r), "<Mat:783.24, Len:182.33, NSE:-1.24, Rural:0.00, Estado:0.00, N:2>")  
+        # valores que den un decimal en promedio
+        e1:Estudiante = Estudiante("CBA", 550.90000, 550.90000, 550.90000, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("PBA", 550.90000, 550.90000, 550.90000, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("SFE", 550.90000, 550.90000, 550.90000, "Rural", "Privado")
+        e4:Estudiante = Estudiante("STA", 550.90000, 550.90000, 550.90000, "Urbano", "Estatal")
+        e5:Estudiante = Estudiante("MZA", 550.90000, 550.90000, 550.90000, "Rural", "Estatal")
+        r:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r.promedio_matematica,550.9)
+        self.assertAlmostEqual(r.promedio_lengua,550.9)
+        self.assertAlmostEqual(r.promedio_nse,550.9)
+        self.assertEqual(str(r), "<Mat:550.90, Len:550.90, NSE:550.90, Rural:0.60, Estado:0.60, N:5>")
+ 
+    #### Test de comparacion de objetos (eq)
+    def test_eq_objetos_iguales(self):
+        #objetos iguales
+        e1:Estudiante = Estudiante("LRI", 321.42965, 512.27894, -0.38927, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("NEU", 845.19487, 478.99991, 1.38291, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("SFE", 456.30791, 709.88224, 0.99123, "Urbano", "Estatal")
+        e4:Estudiante = Estudiante("TUC", 512.91822, 633.47611, -0.41234, "Rural", "Privado")
+        e5:Estudiante = Estudiante("RNE", 602.19879, 357.39999, 1.21783, "Rural", "Estatal")
+        r1:Resumen=Resumen([e1,e2,e3,e4,e5])
+        
+        e1:Estudiante = Estudiante("LRI", 321.42965, 512.27894, -0.38927, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("NEU", 845.19487, 478.99991, 1.38291, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("SFE", 456.30791, 709.88224, 0.99123, "Urbano", "Estatal")
+        e4:Estudiante = Estudiante("TUC", 512.91822, 633.47611, -0.41234, "Rural", "Privado")
+        e5:Estudiante = Estudiante("RNE", 602.19879, 357.39999, 1.21783, "Rural", "Estatal")
+        r2:Resumen=Resumen([e1,e2,e3,e4,e5])
+        
+        self.assertTrue(r1==r2)
+        
+        e1:Estudiante = Estudiante("SLU", 421.15734, 513.38472, -0.58392, "Urbano", "Estatal")
+        e2:Estudiante = Estudiante("CHA", 589.67382, 476.91928, 1.39876, "Rural", "Privado")
+        e3:Estudiante = Estudiante("CRR", 702.38157, 598.27164, 0.87255, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("LPA", 511.20487, 490.12215, -0.29974, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("CHU", 388.76199, 529.83847, 1.05741, "Rural", "Privado")
+        r1:Resumen=Resumen([e1,e2,e3,e4,e5])        
+        
+        e1:Estudiante = Estudiante("SLU", 421.15734, 513.38472, -0.58392, "Urbano", "Estatal")
+        e2:Estudiante = Estudiante("CHA", 589.67382, 476.91928, 1.39876, "Rural", "Privado")
+        e3:Estudiante = Estudiante("CRR", 702.38157, 598.27164, 0.87255, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("LPA", 511.20487, 490.12215, -0.29974, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("CHU", 388.76199, 529.83847, 1.05741, "Rural", "Privado")
+        r2:Resumen=Resumen([e1,e2,e3,e4,e5])
+        
+        self.assertTrue(r1==r2)
+        
+        e1:Estudiante=Estudiante("RNE", float(823), float(321) ,float(1),"Urbano","Privado")
+        e2:Estudiante=Estudiante("SDE", float(231), float(764), float(-1),"Urbano", "Estatal")
+        e3:Estudiante=Estudiante("SFE", float(890), float(912), float(-2), "Rural", "Privado")
+        e4:Estudiante=Estudiante("CHA", float(432), float(120), float(-2), "Urbano", "Privado")
+        e5:Estudiante=Estudiante("CHU", float(721), float(489), float(-0), "Urbano", "Estatal")
+        r1:Resumen=Resumen([e1,e2,e3,e4,e5])
+        
+        e1:Estudiante=Estudiante("RNE", float(823), float(321) ,float(1),"Urbano","Privado")
+        e2:Estudiante=Estudiante("SDE", float(231), float(764), float(-1),"Urbano", "Estatal")
+        e3:Estudiante=Estudiante("SFE", float(890), float(912), float(-2), "Rural", "Privado")
+        e4:Estudiante=Estudiante("CHA", float(432), float(120), float(-2), "Urbano", "Privado")
+        e5:Estudiante=Estudiante("CHU", float(721), float(489), float(-0), "Urbano", "Estatal")
+        r2:Resumen=Resumen([e1,e2,e3,e4,e5])
+        
+        self.assertTrue(r1==r2)        
+        
+        e1:Estudiante = Estudiante("TDF", 513.68451, 499.91661, 0.71945, "Urbano", "Estatal")
+        e2:Estudiante = Estudiante("SFE", 487.21945, 470.55555, -0.12345, "Rural", "Privado")
+        e3:Estudiante = Estudiante("NEU", 501.33000, 499.99444, 0.44222, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("CAT", 478.88888, 461.21412, -1.37999, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("FOR", 496.99999, 488.13131, 1.11001, "Urbano", "Privado")
+        r1:Resumen=Resumen([e1,e2,e3,e4,e5])
+        
+        e1:Estudiante = Estudiante("TDF", 513.68451, 499.91661, 0.71945, "Urbano", "Estatal")
+        e2:Estudiante = Estudiante("SFE", 487.21945, 470.55555, -0.12345, "Rural", "Privado")
+        e3:Estudiante = Estudiante("NEU", 501.33000, 499.99444, 0.44222, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("CAT", 478.88888, 461.21412, -1.37999, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("FOR", 496.99999, 488.13131, 1.11001, "Urbano", "Privado")
+        r2:Resumen=Resumen([e1,e2,e3,e4,e5])
+        
+        self.assertTrue(r1==r2) 
+        
+    def test_eq_objetos_distintos(self):
+        #dos objetos con atributos completamente distintos
+        e1:Estudiante = Estudiante("STA", 432.10987, 654.32109, -0.98765, "Urbano", "Privado")
+        e2:Estudiante = Estudiante("SFE", 876.54321, 123.45678, 0.54321, "Rural", "Estatal")
+        e3:Estudiante = Estudiante("MZA", 210.98765, 789.12345, -0.12345, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("PBA", 345.67890, 456.78901, 1.23456, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("CBA", 567.89012, 234.56789, -0.34567, "Urbano", "Privado")
+        r1:Resumen=Resumen([e1,e2,e3,e4,e5])
+        
+        e1:Estudiante=Estudiante("SCZ", 728.65777, 234.12882, -2.738290, "Rural", "Estatal")
+        e2:Estudiante=Estudiante("MIS", 812.37826, 200.65910, 1.723339, "Rural", "Estatal")
+        e3:Estudiante=Estudiante("LRI", 899.23909, 799.23888, -1.872839, "Rural", "Estatal")
+        e4:Estudiante=Estudiante("TUC",700.120999,390.217212,1.320000, "Rural", "Estatal")
+        e5:Estudiante=Estudiante("MZA",299.87392, 410.91910,2.89900, "Urbano", "Privado")
+        r2:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertFalse(r1==r2)
+        
+        e1:Estudiante=Estudiante("CBA", 876.38888, 567.175777, 1.909999, "Rural", "Privado")
+        e2:Estudiante=Estudiante("ETR", 239.16500009,481.86500 ,0.2666,"Urbano","Estatal")
+        e3:Estudiante=Estudiante("SDE", 345.9999999,567.99999, -0.9999, "Rural", "Estatal")
+        e4:Estudiante=Estudiante("JJY", 888.2, 123.7, -1.0, "Urbano", "Estatal")
+        e5:Estudiante=Estudiante("PBA", 340.0, 367.0, 1.2, "Rural", "Privado")
+        r1:Resumen=Resumen([e1,e2,e3,e4,e5])
+        
+        e1:Estudiante=Estudiante("TUC", 720.74219, 261.37111,1.784990,"Urbano","Privado")
+        e2:Estudiante=Estudiante("STA", 657.88187, 456.98799,-1.326346, "Rural", "Privado")
+        e3:Estudiante=Estudiante("SFE", 910.28391, 100.21821, -1.839213, "Urbano", "Privado")
+        e4:Estudiante=Estudiante("CHA",567.31238, 90.32845, -2.384932, "Rural", "Estatal")
+        e5:Estudiante=Estudiante("MIS", 235.83213, 450.24234, 0.192939, "Urbano", "Privado")
+        r2:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertFalse(r1==r2)
+        
+        e1:Estudiante = Estudiante("SJU", 845.23789, 193.54821, 709.12458, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("NEU", 654.89234, 812.45729, 125.78964, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("CHU", 321.78541, 700.23984, 410.12567, "Rural", "Privado")
+        e4:Estudiante = Estudiante("LRI", 789.12548, 623.41287, 312.45781, "Urbano", "Estatal")
+        e5:Estudiante = Estudiante("CAT", 512.78512, 404.12345, 888.65432, "Rural", "Estatal")
+        r1:Resumen=Resumen([e1,e2,e3,e4,e5])
+        
+        e1:Estudiante = Estudiante("CBA", 437.98571, 199.78964, 753.23145, "Urbano", "Privado")
+        e2:Estudiante = Estudiante("MIS", 658.12345, 524.98765, 632.45987, "Rural", "Privado")
+        e3:Estudiante = Estudiante("TUC", 712.34567, 810.23541, 214.98765, "Urbano", "Estatal")
+        e4:Estudiante = Estudiante("STA", 191.65432, 455.12345, 654.98765, "Rural", "Estatal")
+        e5:Estudiante= Estudiante("PBA", 598.45678, 324.98765, 410.12345, "Urbano", "Privado")
+        r2:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertFalse(r1==r2)
+        
+        e1:Estudiante = Estudiante("FOR", 712.34567, 641.89234, 233.45678, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("TDF", 189.12345, 765.43218, 521.78456, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("LPA", 590.78451, 304.65789, 698.12345, "Rural", "Privado")
+        e4:Estudiante = Estudiante("SLU", 888.51234, 702.19876, 164.33445, "Urbano", "Estatal")
+        e5:Estudiante = Estudiante("SDE", 320.95123, 412.58796, 743.12879, "Rural", "Privado")
+        r1:Resumen=Resumen([e1,e2,e3,e4,e5])
+        
+        e1:Estudiante = Estudiante("CHA", 781.42355, 212.45784, 605.78942, "Urbano", "Privado")
+        e2:Estudiante = Estudiante("JJY", 155.76482, 684.52341, 843.12675, "Rural", "Estatal")
+        e3:Estudiante = Estudiante("SCZ", 690.12458, 175.96234, 529.78462, "Urbano", "Estatal")
+        e4:Estudiante = Estudiante("CRR", 472.95841, 360.47891, 315.12694, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("CAB", 804.23697, 455.78963, 709.34815, "Urbano", "Privado")
+        r2:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertFalse(r1==r2)
+        
+    def test_eq_diferencia_en_un_atributo(self):
+        # diferencia entre ambos resumenes de un solo atributo
+        
+        #diferencia en promedio lengua
+        e1:Estudiante = Estudiante("TUC", 399.45678, 328.31239, 218.37596, "Rural", "Privado")
+        e2:Estudiante = Estudiante("NEU", 510.98745, 213.34431, 745.87631, "Urbano", "Estatal")
+        e3:Estudiante = Estudiante("CAT", 867.13459, 912.32732, 603.21947, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("MIS", 712.39876, 100.32323, 324.87412, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("SJU", 109.23784, 781.32932, 819.00345, "Urbano", "Estatal")
+        r1:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r1.promedio_lengua, 467.12731399999996) 
+        
+        e1:Estudiante = Estudiante("TUC", 399.45678, 845.12763, 218.37596, "Rural", "Privado")
+        e2:Estudiante = Estudiante("NEU", 510.98745, 310.45678, 745.87631, "Urbano", "Estatal")
+        e3:Estudiante = Estudiante("CAT", 867.13459, 200.39485, 603.21947, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("MIS", 712.39876, 750.21349, 324.87412, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("SJU", 109.23784, 420.56132, 819.00345, "Urbano", "Estatal")
+        r2:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r2.promedio_lengua, 505.350814)
+        self.assertFalse(r1==r2)
+        
+        #diferencia en promedio matematica
+        e1:Estudiante = Estudiante("LRI", 234.43434, 199.87654, 710.45987, "Rural", "Privado")
+        e2:Estudiante = Estudiante("SFE", 456.42342, 635.78942, 293.45819, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("RNE", 394.54545, 518.23978, 520.19764, "Rural", "Estatal")
+        e4:Estudiante = Estudiante("MZA", 349.43742, 370.18275, 608.48123, "Rural", "Privado")
+        e5:Estudiante = Estudiante("STA", 203.43434, 459.87543, 399.26489, "Urbano", "Estatal")
+        r1:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r1.promedio_matematica, 327.654994)
+        
+        e1:Estudiante = Estudiante("LRI", 728.43244, 199.87654, 710.45987, "Rural", "Privado")
+        e2:Estudiante = Estudiante("SFE", 102.92348, 635.78942, 293.45819, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("RNE", 403.83933, 518.23978, 520.19764, "Rural", "Estatal")
+        e4:Estudiante = Estudiante("MZA", 92.9823, 370.18275, 608.48123, "Rural", "Privado")
+        e5:Estudiante = Estudiante("STA", 90.23943, 459.87543, 399.26489, "Urbano", "Estatal")
+        r2:Resumen=Resumen([e1,e2,e3,e4,e5])        
+        self.assertAlmostEqual(r2.promedio_matematica, 283.683396)
+        self.assertFalse(r1==r2)        
+
+        #diferencia en promedio nse
+        e1:Estudiante = Estudiante("FOR", 298.74562, 674.19834, -1.432434, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("CHU", 564.32741, 712.98456, 0.4834823, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("LPA", 618.94628, 388.27531, 2.4389434, "Rural", "Privado")
+        e4:Estudiante = Estudiante("CBA", 405.19735, 538.43217, -2.348248, "Urbano", "Estatal")
+        e5:Estudiante = Estudiante("TDF", 812.96428, 679.83214, -0.438434, "Urbano", "Privado")
+        r1:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r1.promedio_nse, -0.25933806000000004)
+
+        e1:Estudiante = Estudiante("FOR", 298.74562, 674.19834, 0.857595, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("CHU", 564.32741, 712.98456, 1.958605, "Urbano", "Privado")
+        e3:Estudiante = Estudiante("LPA", 618.94628, 388.27531, 1.9894509, "Rural", "Privado")
+        e4:Estudiante = Estudiante("CBA", 405.19735, 538.43217, 0.9856590, "Urbano", "Estatal")
+        e5:Estudiante = Estudiante("TDF", 812.96428, 679.83214, 0.4384934, "Urbano", "Privado")        
+        r2:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r2.promedio_nse, 1.24596066)
+        self.assertFalse(r1==r2) 
+        
+        #diferencia en proporcion ambito rural
+        e1:Estudiante = Estudiante("CRR", 391.74826, 468.21597, 753.29861, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("JJY", 243.97654, 598.12374, 472.38416, "Urbano", "Estatal")
+        e3:Estudiante = Estudiante("SDE", 525.18964, 444.69785, 643.98123, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("CAB", 601.25387, 355.86492, 519.24863, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("CHA", 789.31245, 732.98561, 401.58674, "Rural", "Estatal")
+        r1:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r1.proporcion_ambito_rural, 0.4)
+        e1:Estudiante = Estudiante("CRR", 391.74826, 468.21597, 753.29861, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("JJY", 243.97654, 598.12374, 472.38416, "Urbano", "Estatal")
+        e3:Estudiante = Estudiante("SDE", 525.18964, 444.69785, 643.98123, "Rural", "Privado")
+        e4:Estudiante = Estudiante("CAB", 601.25387, 355.86492, 519.24863, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("CHA", 789.31245, 732.98561, 401.58674, "Rural", "Estatal")        
+        r2:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r2.proporcion_ambito_rural, 0.6)
+        self.assertFalse(r1==r2)        
+        
+        #diferencia en proporcion sector estatal     
+        e1:Estudiante = Estudiante("SLU", 432.51234, 590.63421, 123.78459, "Rural", "Estatal")
+        e2:Estudiante = Estudiante("LRI", 888.23457, 321.47852, 312.85691, "Urbano", "Estatal")
+        e3:Estudiante = Estudiante("SJU", 239.45678, 710.29384, 417.95326, "Rural", "Privado")
+        e4:Estudiante = Estudiante("RNE", 673.92715, 453.12674, 804.19263, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("TUC", 581.34985, 348.52973, 721.95843, "Rural", "Estatal")
+        r1:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r1.proporcion_sector_estatal, 0.6)
+
+        e1:Estudiante = Estudiante("SLU", 432.51234, 590.63421, 123.78459, "Rural", "Privado")
+        e2:Estudiante = Estudiante("LRI", 888.23457, 321.47852, 312.85691, "Urbano", "Estatal")
+        e3:Estudiante = Estudiante("SJU", 239.45678, 710.29384, 417.95326, "Rural", "Privado")
+        e4:Estudiante = Estudiante("RNE", 673.92715, 453.12674, 804.19263, "Urbano", "Privado")
+        e5:Estudiante = Estudiante("TUC", 581.34985, 348.52973, 721.95843, "Rural", "Estatal")
+        r2:Resumen=Resumen([e1,e2,e3,e4,e5])
+        self.assertAlmostEqual(r2.proporcion_sector_estatal, 0.4)        
+        self.assertFalse(r1==r2)
+        #diferencia en cantidad
+        e1:Estudiante = Estudiante("NEU", 719.84751, 566.12945, 633.98752, "Urbano", "Estatal")
+        e2:Estudiante = Estudiante("SFE", 397.42358, 893.18753, 410.56874, "Rural", "Privado")
+        e3:Estudiante = Estudiante("MZA", 259.15749, 712.96412, 500.43829, "Urbano", "Privado")
+        e4:Estudiante = Estudiante("STA", 644.24985, 631.47125, 312.24791, "Rural", "Estatal")
+        e5:Estudiante = Estudiante("CAT", 802.13495, 217.98431, 290.18563, "Urbano", "Estatal")
+        r1:Resumen=Resumen([e1,e2,e3,e4,e5]) 
+        self.assertEqual(r1.cantidad, 5)
+        e1:Estudiante = Estudiante("NEU", 719.84751, 566.12945, 633.98752, "Urbano", "Estatal")
+        e2:Estudiante = Estudiante("SFE", 397.42358, 893.18753, 410.56874, "Rural", "Privado")
+        e3:Estudiante = Estudiante("MZA", 259.15749, 712.96412, 500.43829, "Urbano", "Privado")
+        r2:Resumen=Resumen([e1,e2,e3])
+        self.assertEqual(r2.cantidad, 3)
+        self.assertFalse(r1==r2)
+        
+    def test_eq_diferencia_menor_a_001(self):
+        #la diferencia de los promedios son menores a 0.001
+        e1:Estudiante=Estudiante("FOR", 983.43234, 123.32323, -1.32133, "Rural", "Urbano")
+        e2:Estudiante=Estudiante("CAT", 983.43250, 123.32333, -1.32123, "Rural", "Urbano")
+        r1:Resumen=Resumen([e1,e2])
+        
+        e1:Estudiante=Estudiante("FOR", 983.43237, 123.32343, -1.32134, "Rural", "Urbano")
+        e2:Estudiante=Estudiante("CAT", 983.43270, 123.32392, -1.32142, "Rural", "Urbano")
+        r2:Resumen=Resumen([e1,e2])
+        
+        self.assertTrue(r1==r2)
+        
+        e1:Estudiante=Estudiante("CBA", 321.38232, 842.32132, -1.327382, "Urbano","Estatal")
+        e2:Estudiante=Estudiante("NEU", 892.29423, 983.23483, -0.432844, "Urbano","Estatal")
+        r1:Resumen=Resumen([e1,e2]) 
+        
+        e1:Estudiante=Estudiante("FOR", 321.38282, 842.32192, -1.327782, "Urbano","Estatal")
+        e2:Estudiante=Estudiante("MZA", 892.29443, 983.23493, -0.432144, "Urbano","Estatal")
+        r2:Resumen=Resumen([e1,e2])
+        self.assertTrue(r1==r2)
+        
+        e1:Estudiante=Estudiante("MEN", 819.32137, 123.74383, -0.276323, "Rural", "Privado")
+        e2:Estudiante=Estudiante("SFE", 231.23743, 323.23473, -1.327323, "Rural", "Privado")
+        r1:Resumen=Resumen([e1,e2])
+        
+        e1:Estudiante=Estudiante("MEN", 819.32180, 123.74310, -0.276823, "Rural", "Privado")
+        e2:Estudiante=Estudiante("SFE", 231.23790, 323.23420, -1.327123, "Rural", "Privado")
+        r2:Resumen=Resumen([e1,e2]) 
+        self.assertTrue(r1==r2)
+        
+        e1:Estudiante=Estudiante("TDF",348.42348, 789.23784, -1.382323 ,"Urbano", "Privado")
+        e2:Estudiante=Estudiante("NEU", 839.43742, 912.43743, -0.312734, "Urbano", "Privado")
+        r1:Resumen=Resumen([e1,e2]) 
+        
+        e1:Estudiante=Estudiante("TDF",348.42390, 789.23710, -1.382923 ,"Urbano", "Privado")
+        e2:Estudiante=Estudiante("NEU", 839.43789, 912.43789, -0.312934, "Urbano", "Privado")
+        r2:Resumen=Resumen([e1,e2]) 
+        self.assertTrue(r1==r2)
+        
+    def test_eq_diferencia_mayor_001(self):
+        # la diferencia de los promedios son mayores rozando a 0.001 
+        e1:Estudiante=Estudiante("TUC", 891.31238, 872.31232, -1.837493, "Rural", "Privado")
+        e2:Estudiante=Estudiante("MZA", 233.47583, 120.32845, 0.473923, "Rural", "Privado")
+        r1:Resumen=Resumen([e1,e2])
+        
+        e1:Estudiante=Estudiante("CHA", 891.31398, 872.31332, -1.838493, "Rural", "Privado")
+        e2:Estudiante=Estudiante("LPA", 233.47693, 120.32955, 0.476923, "Rural", "Privado")
+        r2:Resumen=Resumen([e1,e2]) 
+        self.assertFalse(r1==r2)
+        
+        e1:Estudiante=Estudiante("SJU",738.32132, 892.31237, -1.374832 ,"Urbano", "Privado")
+        e2:Estudiante=Estudiante("SCZ", 829.12372, 901.37284, -0.381273, "Urbano", "Privado")
+        r1:Resumen=Resumen([e1,e2])
+            
+        e1:Estudiante=Estudiante("PBA",738.32290, 892.31397, -1.375932 ,"Urbano", "Privado")
+        e2:Estudiante=Estudiante("ETR", 829.12492, 901.37394, -0.382473, "Urbano", "Privado")
+        r2:Resumen=Resumen([e1,e2]) 
+        self.assertFalse(r1==r2)
+        
+        e1:Estudiante=Estudiante("CAT", 345.23748, 812.36473, -1.437643, "Urbano", "Estatal")
+        e2:Estudiante=Estudiante("CHA", 128.43743, 912.64744, -0.365832, "Urbano", "Estatal")
+        r1:Resumen=Resumen([e1,e2])
+        
+        e1:Estudiante=Estudiante("TDF", 345.23868, 812.36583, -1.438843, "Urbano", "Estatal")
+        e2:Estudiante=Estudiante("CBA", 128.43863, 912.64884, -0.366932, "Urbano", "Estatal")
+        r2:Resumen=Resumen([e1,e2])  
+        self.assertFalse(r1==r2)
+        
+        e1:Estudiante=Estudiante("SCZ", 782.36748, 109.85683, -2.364731, "Rural", "Privado")
+        e2:Estudiante=Estudiante("CRR", 384.52374, 893.47293, -1.647384, "Rural", "Privado")
+        r1:Resumen=Resumen([e1,e2])
+        
+        e1:Estudiante=Estudiante("LRI", 782.36868, 109.85793, -2.365931, "Rural", "Privado")
+        e2:Estudiante=Estudiante("MIS", 384.52494, 893.47413, -1.648584, "Rural", "Privado")
+        r2:Resumen=Resumen([e1,e2])  
+        self.assertFalse(r1==r2)
+        
+    def test_eq_casos_variados(self):
+        #listas vacias
+        r1:Resumen=Resumen([])
+        r2:Resumen=Resumen([])
+        self.assertTrue(r1==r2)
+        # lista vacia y un estudiante con promedios y proporciones 0.0
+        e1:Estudiante=Estudiante("FOR", 0.0, 0.0, 0.0, "Urbano", "Privado")
+        r1:Resumen=Resumen([e1])
+        r2:Resumen=Resumen([])
+        self.assertAlmostEqual(r1.proporcion_ambito_rural, 0.0)
+        self.assertAlmostEqual(r1.proporcion_sector_estatal, 0.0)
+        self.assertFalse(r1==r2) # por la cantidad
+        # comparar tres objetos, transitividad y simetria
+        e1:Estudiante=Estudiante("CBA", 783.239843, 928.12832, -1.2832, "Urbano", "Estatal")
+        e2:Estudiante=Estudiante("CBA", 783.239843, 928.12832, -1.2832, "Urbano", "Estatal")
+        e3:Estudiante=Estudiante("CBA", 783.239843, 928.12832, -1.2832, "Urbano", "Estatal")
+        r1:Resumen=Resumen([e1])
+        r2:Resumen=Resumen([e2])
+        r3:Resumen=Resumen([e3])
+        self.assertTrue(r1==r2)
+        self.assertTrue(r2==r3)
+        self.assertTrue(r1==r3)
+        self.assertTrue(r2==r1)
+        # lista 1 estudiante y en el otro 2 estudiantes con los mismos atributos que el primero
+        e1:Estudiante=Estudiante("CAT", 674.42343,984.23483,-1.43243, "Urbano", "Privado")
+        e2:Estudiante=Estudiante("CAT", 674.42343,984.23483,-1.43243, "Urbano", "Privado")
+        e3:Estudiante=Estudiante("CAT", 674.42343,984.23483,-1.43243, "Urbano", "Privado")
+        r1:Resumen=Resumen([e1])
+        r2:Resumen=Resumen([e2,e3])
+        self.assertFalse(r1==r2) # por la cantidad
+        #
 ####################################################################
 
 unittest.main()
