@@ -25,8 +25,10 @@ class Pais:
             self.provincias.add(linea["provincia"])
             #se crea una instancia del objeto Estudiante, algunos de los valores del dict que originalmente eran strings son convertidos en floats
             estudiante:Estudiante=Estudiante(linea["provincia"],float(linea["mpuntaje"]),float(linea["lpuntaje"]),float(linea["NSE_puntaje"]), linea["ambito"],linea["sector"])
-            self.estudiantes.append(estudiante) 
+            self.estudiantes.append(estudiante)
         f.close() # cerrar el archivo
+        
+
     def tamano(self) -> int:
         ''' 
         Requiere:nada
@@ -43,10 +45,11 @@ class Pais:
  
         lista_estudiante_provincia:list[Estudiante]=[] #o(1)
         #recorremos todos los estudiantes, si su provincia coincide con la solicitada, lo agregamos a la lista
+        
         for estudiante in self.estudiantes:  #o(n)
             if estudiante.provincia == provincia: #o(1)
                 lista_estudiante_provincia.append(estudiante) #o(1)
-                
+   
         return Resumen(lista_estudiante_provincia) #o(1)
     
     def resumenes_pais(self) -> dict[str, Resumen]:
@@ -64,7 +67,7 @@ class Pais:
         Requiere: categoria es un string que toma el valor "mat", "len" o "nse". Todas las provincias en el conjunto
         provincias estan presentes en self.provincias. x<y
         Devuelve: la cantidad de estudiantes de las provincias indicadas que tienen un puntaje en 
-        matemática, lengua o nivel socioeconómico (según corresponda) mayor o igual que x y menor estricto que y'''
+        matemática, lengua o nivel socioeconómico (según corresponda) mayor o igual que x y menor estricto que y'''        
         cantidad_estudiantes: int = 0 #o(1)
         # verificamos que provincias de interes estan presentes en el objeto
         for provincia in self.provincias: #o(p)
@@ -101,5 +104,3 @@ class Pais:
             resumen=self.resumen_provincia(provincia)
             f.write(provincia+ ","+ str(resumen.cantidad)+","+str(resumen.promedio_matematica)+","+str(resumen.promedio_lengua) + ","+ str(resumen.promedio_nse) +","+str(resumen.proporcion_ambito_rural)+","+str(resumen.proporcion_sector_estatal)+ "\n")
         f.close() #cerramos el archivo
-
-print(Pais("Aprender2023_curado_v4.csv").resumen_provincia("MZA").promedio_nse)
